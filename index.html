@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Salas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>Sistema de Reserva de Salas</h1>
+    
+    <div class="grid">
+        <!-- REQUISITO 1: Cadastrar Sala -->
+        <div class="card">
+            <h2>1. Cadastrar Nova Sala</h2>
+            <form id="form-sala">
+                <div class="form-group">
+                    <label>Nome da Sala:</label>
+                    <input type="text" id="sala-nome" required placeholder="Ex: Sala de Reunião A">
+                </div>
+                <div class="form-group">
+                    <label>Capacidade (pessoas):</label>
+                    <input type="number" id="sala-capacidade" required placeholder="Ex: 10">
+                </div>
+                <div class="form-group">
+                    <label>Localização / Bloco:</label>
+                    <input type="text" id="sala-local" required placeholder="Ex: 3º Andar, Bloco B">
+                </div>
+                <button type="submit">Cadastrar Sala</button>
+            </form>
+        </div>
+
+        <!-- REQUISITO 2 e 3: Consultar e Reservar -->
+        <div class="card">
+            <h2>2 & 3. Reservar uma Sala</h2>
+            <form id="form-reserva">
+                <div class="form-group">
+                    <label>Selecionar Sala:</label>
+                    <select id="reserva-sala-id" required>
+                        <option value="">-- Escolha uma sala --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nome do Colaborador:</label>
+                    <input type="text" id="reserva-colaborador" required placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label>Início da Reserva:</label>
+                    <input type="datetime-local" id="reserva-inicio" required>
+                </div>
+                <div class="form-group">
+                    <label>Fim da Reserva:</label>
+                    <input type="datetime-local" id="reserva-fim" required>
+                </div>
+                <button type="button" id="btn-verificar" style="background-color: #2ecc71;">Verificar Disponibilidade</button>
+                <button type="submit">Confirmar Reserva</button>
+            </form>
+            <div id="status-reserva" class="status-msg"></div>
+        </div>
+    </div>
+
+    <!-- LISTAGENS -->
+    <div class="grid">
+        <div class="card">
+            <h2>Salas Cadastradas</h2>
+            <ul id="lista-salas"></ul>
+        </div>
+        <!-- REQUISITO 4: Cancelar Reserva -->
+        <div class="card">
+            <h2>Reservas Ativas</h2>
+            <ul id="lista-reservas"></ul>
+        </div>
+    </div>
+</div>
+</body>

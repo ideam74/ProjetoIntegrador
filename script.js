@@ -1,24 +1,41 @@
 // Banco de dados via LocalStorage
+// Busca os dados salvos no navegador (LocalStorage) ao carregar a página​
+// Se não houver nada salvo, inicializa como uma lista (array) vazia []
 let salas = JSON.parse(localStorage.getItem('salas')) || [];
 let reservas = JSON.parse(localStorage.getItem('reservas')) || [];
 
+// Salva o estado atual das listas de 'salas' e 'reservas' no LocalStorage
+// Converte os objetos JavaScript em texto (JSON) para que o navegador possa armazenar
 function salvarDados() {
     localStorage.setItem('salas', JSON.stringify(salas));
     localStorage.setItem('reservas', JSON.stringify(reservas));
 }
 
 // REQUISITO 5: Verificar conflito de horário
+/**​
+* Verifica se uma nova reserva conflita com alguma reserva já existente para a mesma sala.​
+*​
+* @param {string} salaId - ID da sala que está sendo avaliada.​
+* @param {Date} inicioNovo - Objeto Date com o horário de início desejado.​
+* @param {Date} fimNovo - Objeto Date com o horário de término desejado.​
+* @returns {boolean} - Retorna true se houver conflito, ou false se o horário estiver livre.​
+*/​
 function existeConflito(salaId, inicioNovo, fimNovo) {
+    // Percorre a lista de reservas procurando se PELO MENOS UMA (.some) gera conflito
     return reservas.some(reserva => {
         if (reserva.salaId !== salaId) return false;
 
+        // Converte as datas salvas da reserva antiga de volta para objetos Date
         const resInicio = new Date(reserva.dataInicio);
         const resFim = new Date(reserva.dataFim);
 
+        // Verifica se o novo início fica dentro de uma reserva existente
         const conflitoInicio = inicioNovo >= resInicio && inicioNovo < resFim;
+        // Verifica se o novo fim fica dentro de uma reserva existente​
         const conflitoFim = fimNovo > resInicio && fimNovo <= resFim;
+        // Verifica se o novo período engloba totalmente uma reserva existente
         const conflitoEnvolve = inicioNovo <= resInicio && fimNovo >= resFim;
-
+        // Se qualquer uma das condições acima for verdadeiro, há conflito de horário
         return conflitoInicio || conflitoFim || conflitoEnvolve;
     });
 }
@@ -26,7 +43,13 @@ function existeConflito(salaId, inicioNovo, fimNovo) {
 // LÓGICA DE INTERFACE (DOM)
 
 // Atualiza os selects e as listas na tela
+/**​
+* Atualiza visualmente todos os elementos da página HTML.​
+* Limpa as listas antigas e redesenha as salas, reservas e opções do formulário​
+* com base nos dados mais recentes da memória.​
+*/​
 function atualizarTela() {
+    // Captura as referências dos elementos HTML que serão modificados
     const listaSalas = document.getElementById('lista-salas');
     const listaReservas = document.getElementById('lista-reservas');
     const selectSalas = document.getElementById('reserva-sala-id');
@@ -34,6 +57,7 @@ function atualizarTela() {
     // Limpar elementos
     listaSalas.innerHTML = '';
     listaReservas.innerHTML = '';
+    // Reseta o menu de seleção com uma opção padrão vazia
     selectSalas.innerHTML = '<option value="">-- Escolha uma sala --</option>';
 
     // Renderizar Salas

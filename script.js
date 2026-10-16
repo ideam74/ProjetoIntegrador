@@ -11,14 +11,14 @@ function salvarDados() {
     localStorage.setItem('reservas', JSON.stringify(reservas));
 }
 
-// REQUISITO 5: Verificar conflito de horário
+/* REQUISITO 5: Verificar conflito de horário
 ​
 // Verifica se uma nova reserva conflita com alguma reserva já existente para a mesma sala.​
 // @param {string} salaId - ID da sala que está sendo avaliada.​
 // @param {Date} inicioNovo - Objeto Date com o horário de início desejado.​
 // @param {Date} fimNovo - Objeto Date com o horário de término desejado.​
 // @returns {boolean} - Retorna true se houver conflito, ou false se o horário estiver livre.​
-​
+​*/
 function existeConflito(salaId, inicioNovo, fimNovo) {
     // Percorre a lista de reservas procurando se PELO MENOS UMA (.some) gera conflito
     return reservas.some(reserva => {

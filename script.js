@@ -39,10 +39,10 @@ function existeConflito(salaId, inicioNovo, fimNovo) {
     });
 }
 
-// LÓGICA DE INTERFACE (DOM)
+/* LÓGICA DE INTERFACE (DOM)
 
 // Atualiza os selects e as listas na tela
-/**​
+​
 * Atualiza visualmente todos os elementos da página HTML.​
 * Limpa as listas antigas e redesenha as salas, reservas e opções do formulário​
 * com base nos dados mais recentes da memória.​

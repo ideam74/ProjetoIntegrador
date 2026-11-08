@@ -1,4 +1,5 @@
 // Banco de dados via LocalStorage
+<<<<<<< HEAD
 // Busca os dados salvos no navegador (LocalStorage) ao carregar a página​
 // Se não houver nada salvo, inicializa como uma lista (array) vazia []
 let salas = JSON.parse(localStorage.getItem('salas')) || [];
@@ -6,11 +7,17 @@ let reservas = JSON.parse(localStorage.getItem('reservas')) || [];
 
 // Salva o estado atual das listas de 'salas' e 'reservas' no LocalStorage
 // Converte os objetos JavaScript em texto (JSON) para que o navegador possa armazenar
+=======
+let salas = JSON.parse(localStorage.getItem('salas')) || [];
+let reservas = JSON.parse(localStorage.getItem('reservas')) || [];
+
+>>>>>>> 0555af9 (Subindo os arquivos)
 function salvarDados() {
     localStorage.setItem('salas', JSON.stringify(salas));
     localStorage.setItem('reservas', JSON.stringify(reservas));
 }
 
+<<<<<<< HEAD
 /* REQUISITO 5: Verificar conflito de horário
 ​
 // Verifica se uma nova reserva conflita com alguma reserva já existente para a mesma sala.​
@@ -35,10 +42,25 @@ function existeConflito(salaId, inicioNovo, fimNovo) {
         // Verifica se o novo período engloba totalmente uma reserva existente
         const conflitoEnvolve = inicioNovo <= resInicio && fimNovo >= resFim;
         // Se qualquer uma das condições acima for verdadeiro, há conflito de horário
+=======
+// REQUISITO 5: Verificar conflito de horário
+function existeConflito(salaId, inicioNovo, fimNovo) {
+    return reservas.some(reserva => {
+        if (reserva.salaId !== salaId) return false;
+
+        const resInicio = new Date(reserva.dataInicio);
+        const resFim = new Date(reserva.dataFim);
+
+        const conflitoInicio = inicioNovo >= resInicio && inicioNovo < resFim;
+        const conflitoFim = fimNovo > resInicio && fimNovo <= resFim;
+        const conflitoEnvolve = inicioNovo <= resInicio && fimNovo >= resFim;
+
+>>>>>>> 0555af9 (Subindo os arquivos)
         return conflitoInicio || conflitoFim || conflitoEnvolve;
     });
 }
 
+<<<<<<< HEAD
 /* LÓGICA DE INTERFACE (DOM)
 
 // Atualiza os selects e as listas na tela
@@ -49,6 +71,12 @@ function existeConflito(salaId, inicioNovo, fimNovo) {
 */​
 function atualizarTela() {
     // Captura as referências dos elementos HTML que serão modificados
+=======
+// LÓGICA DE INTERFACE (DOM)
+
+// Atualiza os selects e as listas na tela
+function atualizarTela() {
+>>>>>>> 0555af9 (Subindo os arquivos)
     const listaSalas = document.getElementById('lista-salas');
     const listaReservas = document.getElementById('lista-reservas');
     const selectSalas = document.getElementById('reserva-sala-id');
@@ -56,7 +84,10 @@ function atualizarTela() {
     // Limpar elementos
     listaSalas.innerHTML = '';
     listaReservas.innerHTML = '';
+<<<<<<< HEAD
     // Reseta o menu de seleção com uma opção padrão vazia
+=======
+>>>>>>> 0555af9 (Subindo os arquivos)
     selectSalas.innerHTML = '<option value="">-- Escolha uma sala --</option>';
 
     // Renderizar Salas
